@@ -11,13 +11,14 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
+import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 
-import cz.jirutka.spring.embedmongo.EmbeddedMongoFactoryBean;
+import cz.jirutka.spring.embedmongo.EmbeddedMongoBuilder;
+
 
 @Profile("test")
 @SpringBootConfiguration
@@ -40,4 +41,13 @@ public class MongoConfig
 //	    MongoTemplate mongoTemplate = new MongoTemplate(mongoClient, "test_or_whatever_you_want_to_call_this_db");
 //	    return mongoTemplate;
 //	}
+	
+	@Bean(destroyMethod="close")
+	public Mongo mongo() throws IOException {
+	    return new EmbeddedMongoBuilder()
+	        .version("2.4.5")
+	        .bindIp("127.0.0.1")
+	        .port(30000)
+	        .build();
+	}
 }
