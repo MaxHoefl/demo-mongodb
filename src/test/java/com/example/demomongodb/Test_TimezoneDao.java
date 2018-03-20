@@ -33,11 +33,9 @@ public class Test_TimezoneDao {
 
 	private static final Logger LOG = LoggerFactory.getLogger(Test_TimezoneDao.class);
 	
-	//@Autowired private TimezoneDao dao;
+	@Autowired private TimezoneDao dao;
 	@Autowired private CounterService counterService;
 	
-	@Autowired
-	private MongoTemplate mongoTemplate;
 
 	@Test
 	public void test() 
@@ -52,9 +50,7 @@ public class Test_TimezoneDao {
 		tz2.setOffset(11);
 		tz2.setTz("Australia/Sydney");
 		
-		mongoTemplate.save(tz);
-		
-		List<TimeZone> tzs = mongoTemplate.findAll(TimeZone.class, "timezones");
+		List<TimeZone> tzs = dao.findAll();
 		
 		for(TimeZone t : tzs)
 		{

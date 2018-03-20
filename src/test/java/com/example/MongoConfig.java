@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,13 +19,12 @@ import com.mongodb.MongoClient;
 
 import cz.jirutka.spring.embedmongo.EmbeddedMongoFactoryBean;
 
-@SpringBootConfiguration
 @Profile("test")
+@SpringBootConfiguration
 @ComponentScan(basePackages= {"com.example.demomongodb"})
-@EnableJpaRepositories(basePackages= {"com.example.demomongodb"})
 @EnableMongoRepositories(basePackages= {"com.example.demomongodb"})
-@EntityScan(basePackages= {"com.example.demomongodb"})
 @EnableAutoConfiguration
+@AutoConfigureDataMongo
 public class MongoConfig 
 {
 	public MongoConfig()
@@ -32,12 +32,12 @@ public class MongoConfig
 		System.out.println("============= LOADING MONGO CONFIG ===============");
 	}
 	
-	@Bean
-	public MongoTemplate mongoTemplate() throws IOException {
-	    EmbeddedMongoFactoryBean mongo = new EmbeddedMongoFactoryBean();
-	    mongo.setBindIp("localhost");
-	    MongoClient mongoClient = mongo.getObject();
-	    MongoTemplate mongoTemplate = new MongoTemplate(mongoClient, "test_or_whatever_you_want_to_call_this_db");
-	    return mongoTemplate;
-	}
+//	@Bean
+//	public MongoTemplate mongoTemplate() throws IOException {
+//	    EmbeddedMongoFactoryBean mongo = new EmbeddedMongoFactoryBean();
+//	    mongo.setBindIp("localhost");
+//	    MongoClient mongoClient = mongo.getObject();
+//	    MongoTemplate mongoTemplate = new MongoTemplate(mongoClient, "test_or_whatever_you_want_to_call_this_db");
+//	    return mongoTemplate;
+//	}
 }
