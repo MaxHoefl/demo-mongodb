@@ -17,8 +17,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 
-import cz.jirutka.spring.embedmongo.EmbeddedMongoBuilder;
-
 
 @Profile("test")
 @SpringBootConfiguration
@@ -42,12 +40,4 @@ public class MongoConfig
 //	    return mongoTemplate;
 //	}
 	
-	@Bean(destroyMethod="close")
-	public Mongo mongo() throws IOException {
-	    return new EmbeddedMongoBuilder()
-	        .version("2.4.5")
-	        .bindIp("127.0.0.1")
-	        .port(30000)
-	        .build();
-	}
 }
